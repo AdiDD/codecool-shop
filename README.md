@@ -1,114 +1,144 @@
-# Codecool shop (sprint 2)
 
-## Story
+<div id="top"></div>
 
-It's time to enhance the Online Shop, an online eCommerce web-application with Java,
-where users can not only browse products, add them into a Shopping Cart,
-checkout items and make payments, but can also log in and see the abandoned shopping cart or their order history.
+# Codecool Shop E-Commerce Website
 
-> Did you know that the very first product on eBay was a broken laser pointer?
-> If you don't believe, check their history: [eBay history](https://www.ebayinc.com/company/our-history/)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#main-features">Main Features</a></li>
+        <li><a href="#integrated-services">Integrated Services</a></li>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#visuals">Visuals</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#development-team">Development Team</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-## What are you going to learn?
-
-- Log properly.
-- Use property files for separate project settings.
-- Write tests and mock out dependencies to ensure the correct functionality and gain confidence at future  modification.
-- Use databases to make the data persistent by using an ORM.
-- Use the `DAO` design pattern in `Csharp`.
-- Refresh your SQL knowledge.
 
 
-## Tasks
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-1. Create a new sprint tab on the existing backlog. Last week, you had a long list of stories, a few new stories this week.
-    - The new items are added to the backlog.
-    - The team has created a sprint 2 plan, based on the unified backlog.
+Codecool Shop is a an e-Commerce platform designed to buy electronic goods. Through it a business may process orders, accept payments and store user details for delivery.
 
-2. As you work in a new repository but still need the code from the previous sprint, add the `codecool-shop-2` repository as a new remote to the repository of the previous sprint, then pull (merge) and push your changes into it.
-    - There is a merge commit in the project repository that contains code from the previous sprint.
+<p align="right"><a href="#top">Top ↑</a></p>
 
-3. As a Developer, I want to cover the `ProductService` and any other Service objects with unit tests, so that I can safely change the implementation later.
-    - All methods of the Services are tested, independently from their DAO dependencies, using mocking.
-    - Both "happy-paths" and "sad-paths" are tested.
-    - At least eleven unit tests pass.
 
-4. As a Developer, I want to have proper log messages when any failure happens to make it possible to find any malfunction in the system and track back user complaints.
-    - Serilog can be utilized for providing diagnostic logging.
-    - All exceptions are logged with a proper description message.
+### Main Features
 
-5. As an Operator of the Shop, I want the product data to be persistent, so that I can restart the application without losing product data.
-    - There is an empty MSSQL database, named `codecoolshop`.
-    - The Entity Framework Core code-first approach is used for providing the database schema. The database is then seeded with products.
-    - When the page is loaded and DB is used, suppliers, product categories, and products are loaded from the database using `ProductDao`, `ProductCategoryDao`, and `SupplierDao`.
+- Register
+- Login using Identity Package with cookies
+- Logout
+- Add to Cart
+- Cart Preview
+- Edit cart items quantity
+- Place an order
+- Card Payment using Stripe
 
-6. As a Developer, I want to read the DAO settings and DB connection parameters (url, database name, usr, pwd) from a config file, so I can change the settings of the application on every environment without compiling again.
-    - In the appsettings.json file, local database parameters are added with the following structure (exact values may vary). ```
- "Mode": "sql",
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=(LocalDb)\\MSSQLLocalDB;Database=codecoolshop;Trusted_Connection=True;MultipleActiveResultSets=true"}```
-    - The application reads the database type and either operates on the Entity Framework in-memory, or in SQL variations.
-    - The application reads the DB settings and database type from the appsettings file.
+<p align="right"><a href="#top">Top ↑</a></p>
 
-7. As an Operator of the Shop, I want to keep Order data safe and persistent, so that I do not lose money due to technical issues.
-    - If the user starts a checkout process, all Order data is saved into the database at every step (except the cart).
+### Built With
 
-8. As a User, I want to sign up (make a personal account), so that I can store Orders on my personal account.
-    - There is a `Sign up` option on the website.
-    - There is a signup form with the following fields.
-- `name`
-- `email`
-- `password`
-    - When the user submits the form with valid information, the system saves the data as a new `User`.
-    - The system sends a welcome email upon successful registration.
-    - When the user submits the form with invalid information, the program displays the form with the invalid data, and some error descriptions.
+ MVC design pattern
 
-9. As a User, I want to able to log in, so that I can and access my personal data. I also want to be able to log out.
-    - There is a `Login` option on the website.
-    - When the user selects "Login", a login form is displayed with the following fields.
-- email address
-- password
-    - When the user submits the form with valid information, they are authenticated and given a new logged-in session.
-    - When the user submits the form with invalid information, an error message is displayed.
-    - If the user is logged in, a Logout option is displayed on the webpage. When the user selects "Logout", the session is reset, and the user is redirected to the login form.
+* Back End:  [ASP .NET Core][asp-net-core],  [C#][c#],  [Entity Framework Core][ef-core]
+* Security:  [Identity][identity-core]
+* Front End:  [HTML][html],  [CSS][css],   [JavaScript][js],  [Bootstrap][bootstrap]
+* Database Management:  [Microsoft SQL Server][msql-server],   [Microsoft SQL Server Management Studio][ssms]
+* IDE:  [Microsoft Visual Studio][visual-studio]
 
-10. As a logged-in User, I want to see my Order history, with my previous Orders and their statuses.
-    - There is an `Order history` option on the webpage.
-    - A list of all Orders of the user is displayed, with the following details.
-- order date
-- order status (checked / paid / confirmed / shipped)
-- total price
-- product list (with product name, price)
+<p align="right"><a href="#top">Top ↑</a></p>
 
-11. As a logged-in User, I want to save the current items of my Shopping cart so that I can order my selected Products later.
-    - There is a `Save my cart` button (on the Shopping cart review page).
-    - When clicking this button, the system saves the cart items into the database for the logged-in User.
-    - When a User with a previously saved shopping cart logs in the shopping cart is refilled with the saved items.
+### Integrated Services
 
-12. As a logged-in User, I want to save my billing and shipping info to my personal account, so that I don't need to retype the data every time during checkout.
-    - There is a `Billing info` option on the webpage.
-    - Clicking `Billing info` displays a form asking for all personal billing and shipping information required for checkout.
-    - On the Shopping Cart review page, clicking the "Checkout" button as a logged-in user, the billing and shipping info is pre-filled on the checkout form.
+* Payment processing: [Stripe][stripe]
+* Email service: [Fluent Email][fluent-mail]
+<p align="right"><a href="#top">Top ↑</a></p>
 
-## General requirements
+### Visuals
 
-- Advanced OOP concepts are used in the project, such as inheritance.
-There is at least one abstract class.
-There is at least one interface implemented.
-- The page does not show a server error anytime during the review.
-- All code is pushed to GitHub repository in atomic commits. The implemented feature-related commits are managed on separated feature branches, and merged in a pull request to the `master` branch.
 
-## Hints
+<!-- GETTING STARTED -->
+## Getting Started
 
-- It's not required to integrate real payment services - you can use fake payment implementations.
-- Use the DAO implementations via interfaces so that it will be easy to change the implementation behind the interface.
-- You can use `decimal(20,2)` sql type to store your decimal values in the database
+### Installation
 
-## Background materials
 
-- <i class="far fa-exclamation"></i> [Serilog in ASP.NET Core 3.1](https://codewithmukesh.com/blog/serilog-in-aspnet-core-3-1/)
-- <i class="far fa-exclamation"></i> [ASP.NET Core session basics](https://tutexchange.com/using-session-in-asp-net-core-3-0/)
-- <i class="far fa-exclamation"></i> [Querying in Entity Framework](https://www.entityframeworktutorial.net/querying-entity-graph-in-entity-framework.aspx)
-- <i class="far fa-exclamation"></i> [Learning Entity Framework Core](https://www.entityframeworktutorial.net/efcore/entity-framework-core.aspx)
-- <i class="far fa-exclamation"></i> [ASP.NET Core Identity](https://www.tutorialspoint.com/asp.net_core/asp.net_core_identity_configuration.htm)
+- Create a MSSQL database
 
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Run the project with IIS Express.
+
+<p align="right"><a href="#top">Top ↑</a></p>
+
+## Development Team
+
+* [Victor Nicolae's GitHub][victor-nicolae]
+* [Adrian Deaconu's GitHub][adrian-deaconu]
+
+<p align="right"><a href="#top">Top ↑</a></p>
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Thanks for all the support to the [Codecool][codecool] mentors that have guided us!
+
+<p align="right"><a href="#top">Top ↑</a></p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[project-client]: https://github.com/red-victor/fleet-manager-client
+[project-api]: https://github.com/red-victor/fleet-manager-api
+
+[asp-net-core]: https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core
+[ef-core]: https://docs.microsoft.com/en-us/ef/core/
+[auto-mapper]: https://automapper.org/
+[c#]: https://docs.microsoft.com/en-us/dotnet/csharp/
+[html]: https://html.com/
+[css]: https://www.w3.org/Style/CSS/Overview.en.html
+[js]: https://www.javascript.com/
+[react]: https://reactjs.org/
+[react-net]: https://reactjs.net/
+[bootstrap]: https://getbootstrap.com
+[jquery]: https://jquery.com
+[msql-server]: https://www.microsoft.com/en-us/sql-server/sql-server-2019
+[ssms]: https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15
+[visual-studio]: https://visualstudio.microsoft.com/
+[visual-studio-code]: https://code.visualstudio.com/
+[identity-core]: https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio
+[docker]: https://www.docker.com/
+
+[victor-nicolae]: https://github.com/red-victor
+[adrian-deaconu]: https://github.com/AdiDD
+
+[codecool]: https://codecool.com/en/
+
+[mail-kit]: https://www.mailkit.com/
+[office-open-xml]: https://epplussoftware.com/docs/5.0/api/OfficeOpenXml.html
+[fluent-mail]: https://lukelowrey.com/dotnet-email-guide-2021/
+[stripe]: https://stripe.com/
+
+[page-login]:https://res.cloudinary.com/dsanrttbt/image/upload/v1644154627/Fleet-Manager/login_nw3atx.png
+[dashboard]: https://res.cloudinary.com/dsanrttbt/image/upload/v1644154628/Fleet-Manager/user-dashboard_l3omwn.png
+[user-list]: https://res.cloudinary.com/dsanrttbt/image/upload/v1644154627/Fleet-Manager/user-list_rgt387.png
+[car-details]: https://res.cloudinary.com/dsanrttbt/image/upload/v1644154627/Fleet-Manager/car-details_sz0olh.png
+[car-list]: https://res.cloudinary.com/dsanrttbt/image/upload/v1644154627/Fleet-Manager/car-list-search-pagination_hd7rsx.png
